@@ -1,0 +1,18 @@
+# JitPack Configuration for FastClipboard
+# https://jitpack.io/#andrestubbe/FastClipboard
+
+jdk:
+  - openjdk17
+
+before_install:
+  - echo "Building FastClipboard native library..."
+  - cmd /c compile.bat
+  
+install:
+  - echo "Installing FastClipboard..."
+  - mvn clean install -DskipTests
+
+# Artifact configuration
+artifacts:
+  - target/*.jar
+  - target/classes/native/*.dll

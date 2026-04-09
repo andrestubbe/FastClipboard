@@ -1,4 +1,5 @@
 #include <windows.h>
+#include <shlobj.h>
 #include <jni.h>
 #include <iostream>
 #include "fastclipboard.h"
@@ -62,7 +63,7 @@ JNIEXPORT jboolean JNICALL Java_fastclipboard_FastClipboard_setClipboardText(JNI
     return JNI_TRUE;
 }
 
-JNIEXPORT jstring JNICALL Java_fastclipboard_FastClipboard_getClipboardText(JNIEnv *env, jobject obj) {
+JNIEXPORT jstring JNICALL Java_fastclipboard_FastClipboard_nativeGetClipboardText(JNIEnv *env, jobject obj) {
     if (!OpenClipboard(NULL)) {
         return NULL;
     }
@@ -439,4 +440,141 @@ JNIEXPORT jboolean JNICALL Java_fastclipboard_FastClipboard_hasClipboardFiles(JN
     CloseClipboard();
     
     return result;
+}
+
+// Clipboard Watcher Implementation
+static HWND g_watcherHwnd = NULL;
+static HWND g_nextViewer = NULL;
+static JavaVM* g_vm = NULL;
+static jobject g_javaObject = NULL;
+static jmethodID g_onClipboardChangedMethod = NULL;
+static volatile bool g_watcherEnabled = false;
+
+LRESULT CALLBACK WatcherWindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+    switch (msg) {
+        case WM_CREATE:
+            return 0;
+            
+        case WM_CHANGECBCHAIN:
+            // Clipboard viewer chain changed
+            if ((HWND)wParam == g_nextViewer) {
+                g_nextViewer = (HWND)lParam;
+            } else if (g_nextViewer != NULL) {
+                SendMessage(g_nextViewer, msg, wParam, lParam);
+            }
+            return 0;
+            
+        case WM_DRAWCLIPBOARD:
+            // Clipboard content changed
+            if (g_watcherEnabled && g_vm != NULL && g_javaObject != NULL && g_onClipboardChangedMethod != NULL) {
+                JNIEnv* env;
+                jint attachResult = g_vm->AttachCurrentThread((void**)&env, NULL);
+                if (attachResult == JNI_OK || attachResult == JNI_EDETACHED) {
+                    env->CallVoidMethod(g_javaObject, g_onClipboardChangedMethod);
+                    if (attachResult == JNI_EDETACHED) {
+                        g_vm->DetachCurrentThread();
+                    }
+                }
+            }
+            // Pass message to next viewer
+            if (g_nextViewer != NULL) {
+                SendMessage(g_nextViewer, msg, wParam, lParam);
+            }
+            return 0;
+            
+        case WM_DESTROY:
+            PostQuitMessage(0);
+            return 0;
+    }
+    return DefWindowProc(hwnd, msg, wParam, lParam);
+}
+
+JNIEXPORT jboolean JNICALL Java_fastclipboard_FastClipboard_nativeEnableWatcher(JNIEnv *env, jobject obj) {
+    if (g_watcherEnabled) {
+        return JNI_TRUE;  // Already enabled
+    }
+    
+    // Cache JVM reference
+    if (g_vm == NULL) {
+        env->GetJavaVM(&g_vm);
+    }
+    
+    // Cache Java object reference
+    if (g_javaObject != NULL) {
+        env->DeleteGlobalRef(g_javaObject);
+    }
+    g_javaObject = env->NewGlobalRef(obj);
+    
+    // Cache method ID for onClipboardChanged
+    jclass clazz = env->GetObjectClass(obj);
+    g_onClipboardChangedMethod = env->GetMethodID(clazz, "onClipboardChanged", "()V");
+    
+    if (g_onClipboardChangedMethod == NULL) {
+        return JNI_FALSE;
+    }
+    
+    // Create window class if not already registered
+    static bool classRegistered = false;
+    if (!classRegistered) {
+        WNDCLASSEX wc = {};
+        wc.cbSize = sizeof(WNDCLASSEX);
+        wc.lpfnWndProc = WatcherWindowProc;
+        wc.hInstance = GetModuleHandle(NULL);
+        wc.lpszClassName = "FastClipboardWatcher";
+        
+        if (!RegisterClassEx(&wc)) {
+            return JNI_FALSE;
+        }
+        classRegistered = true;
+    }
+    
+    // Create hidden window for clipboard watching
+    g_watcherHwnd = CreateWindowEx(
+        0,
+        "FastClipboardWatcher",
+        "FastClipboard Watcher",
+        0,
+        0, 0, 0, 0,
+        HWND_MESSAGE,  // Message-only window (no UI)
+        NULL,
+        GetModuleHandle(NULL),
+        NULL
+    );
+    
+    if (g_watcherHwnd == NULL) {
+        return JNI_FALSE;
+    }
+    
+    // Add to clipboard viewer chain
+    g_nextViewer = SetClipboardViewer(g_watcherHwnd);
+    g_watcherEnabled = true;
+    
+    return JNI_TRUE;
+}
+
+JNIEXPORT void JNICALL Java_fastclipboard_FastClipboard_nativeDisableWatcher(JNIEnv *env, jobject obj) {
+    if (!g_watcherEnabled) {
+        return;
+    }
+    
+    g_watcherEnabled = false;
+    
+    // Remove from clipboard viewer chain
+    if (g_watcherHwnd != NULL) {
+        ChangeClipboardChain(g_watcherHwnd, g_nextViewer);
+        DestroyWindow(g_watcherHwnd);
+        g_watcherHwnd = NULL;
+        g_nextViewer = NULL;
+    }
+    
+    // Clean up Java references
+    if (g_javaObject != NULL) {
+        env->DeleteGlobalRef(g_javaObject);
+        g_javaObject = NULL;
+    }
+    g_onClipboardChangedMethod = NULL;
+}
+
+JNIEXPORT jboolean JNICALL Java_fastclipboard_FastClipboard_isWatcherEnabled(JNIEnv *env, jobject obj) {
+    return g_watcherEnabled ? JNI_TRUE : JNI_FALSE;
 }

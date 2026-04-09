@@ -41,7 +41,22 @@ public class FastClipboard {
      * 
      * @return The clipboard text, or null if empty/error
      */
-    public native String getClipboardText();
+    public String getClipboardText() {
+        if (watcherEnabled) {
+            // Check cache first
+            if (cachedText != null) {
+                return cachedText;
+            }
+            // Read from clipboard and cache
+            cachedText = nativeGetClipboardText();
+            lastCacheTime = System.nanoTime();
+            return cachedText;
+        }
+        // Normal mode - no caching
+        return nativeGetClipboardText();
+    }
+    
+    private native String nativeGetClipboardText();
     
     /**
      * Check if clipboard contains text.
@@ -141,4 +156,52 @@ public class FastClipboard {
     public static final int CF_ENHMETAFILE = 14;
     public static final int CF_HDROP = 15;
     public static final int CF_LOCALE = 16;
+    
+    // === Clipboard Watcher with Caching ===
+    
+    private volatile String cachedText = null;
+    private volatile long lastCacheTime = 0;
+    private volatile boolean watcherEnabled = false;
+    
+    // Native methods for watcher control
+    private native boolean nativeEnableWatcher();
+    private native void nativeDisableWatcher();
+    public native boolean isWatcherEnabled();
+    
+    /**
+     * Called from native code when clipboard changes.
+     * Invalidates the cache.
+     */
+    private void onClipboardChanged() {
+        cachedText = null;
+        lastCacheTime = 0;
+    }
+    
+    /**
+     * Enable clipboard watcher for instant reads via caching.
+     * 
+     * When enabled, getClipboardText() uses a cache that's invalidated
+     * automatically when clipboard content changes.
+     * 
+     * @return true if watcher was enabled successfully
+     */
+    public boolean enableWatcher() {
+        if (nativeEnableWatcher()) {
+            watcherEnabled = true;
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Disable clipboard watcher.
+     * 
+     * After disabling, getClipboardText() will always read from clipboard directly.
+     */
+    public void disableWatcher() {
+        nativeDisableWatcher();
+        watcherEnabled = false;
+        cachedText = null;
+    }
+    
 }

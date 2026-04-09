@@ -142,6 +142,8 @@
                                     <directory>build</directory>
                                     <includes>
                                         <include>fastclipboard.dll</include>
+                                        <include>libfastclipboard.so</include>
+                                        <include>libfastclipboard.dylib</include>
                                     </includes>
                                 </resource>
                             </resources>
@@ -169,4 +171,15 @@
             </properties>
         </profile>
     </profiles>
+
+    <distributionManagement>
+        <repository>
+            <id>central</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+        <snapshotRepository>
+            <id>central</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
