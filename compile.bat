@@ -8,15 +8,32 @@ echo.
 
 :: Check for Java
 if not defined JAVA_HOME (
-    set "JAVA_HOME=C:\Program Files\Java\jdk-17"
+    :: Try to find Java automatically
+    if exist "C:\Program Files\Java\jdk-25\include\jni.h" (
+        set "JAVA_HOME=C:\Program Files\Java\jdk-25"
+    ) else if exist "C:\Program Files\Java\jdk-17\include\jni.h" (
+        set "JAVA_HOME=C:\Program Files\Java\jdk-17"
+    ) else if exist "C:\Program Files\Java\jdk-21\include\jni.h" (
+        set "JAVA_HOME=C:\Program Files\Java\jdk-21"
+    ) else if exist "C:\Program Files\Java\jdk-11\include\jni.h" (
+        set "JAVA_HOME=C:\Program Files\Java\jdk-11"
+    ) else (
+        echo ERROR: Cannot find Java installation with jni.h
+        echo Please set JAVA_HOME environment variable
+        pause
+        exit /b 1
+    )
 )
 
 if not exist "%JAVA_HOME%\include\jni.h" (
     echo ERROR: Cannot find jni.h in %JAVA_HOME%\include
     echo Please check your Java installation
+    echo JAVA_HOME is set to: %JAVA_HOME%
     pause
     exit /b 1
 )
+
+echo Found Java at: %JAVA_HOME%
 
 :: Use vswhere to find Visual Studio
 set "VSWHERE=%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe"
