@@ -1,4 +1,4 @@
-# FastClipboard — Native Clipboard Access via JNI (Stable & Fast)
+# FastClipboard — Native Clipboard Access via JNI (2-3× Faster than Java AWT)
 
 **⚡ Ultra-fast native clipboard access — stable copy/paste without Java clipboard bugs**
 
@@ -6,6 +6,8 @@
 [![Java](https://img.shields.io/badge/Java-17+-blue.svg)](https://www.java.com)
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010+-lightgrey.svg)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![JitPack](https://jitpack.io/v/andrestubbe/FastClipboard.svg)](https://jitpack.io/#andrestubbe/FastClipboard)
+[![GitHub stars](https://img.shields.io/github/stars/andrestubbe/fastclipboard.svg)](https://github.com/andrestubbe/fastclipboard/stargazers)
 
 ```java
 // Quick Start — Stable clipboard operations
@@ -17,17 +19,20 @@ clipboard.setClipboardText("Hello, World!");
 // Get text from clipboard
 String text = clipboard.getClipboardText();
 
-// Check if clipboard has text
-if (clipboard.hasClipboardText()) {
-    System.out.println("Clipboard contains: " + text);
-}
+// Copy image to clipboard
+int[] pixels = new int[100 * 100];
+clipboard.setClipboardImage(100, 100, pixels);
+
+// Copy file list to clipboard
+String[] files = {"C:\\file1.txt", "C:\\file2.txt"};
+clipboard.setClipboardFiles(files);
 ```
 
-FastClipboard is a **minimal JNI module** that provides direct Win32 clipboard access for stable, fast copy/paste operations. Built to replace the buggy `java.awt.Toolkit.getDefaultToolkit().getSystemClipboard()` with a native implementation using `OpenClipboard`, `GetClipboardData`, and `SetClipboardData`.
+FastClipboard is a **high-performance Java clipboard library** that replaces `java.awt.Toolkit.getDefaultToolkit().getSystemClipboard()` with a **native Windows backend** using Win32 API calls. Built for **stable text operations**, **image handling**, **file transfer**, and **format detection**. Supports **CF_UNICODETEXT**, **CF_DIB** (images), and **CF_HDROP** (file lists) formats.
 
-**Keywords:** java clipboard alternative, native clipboard jni, win32 clipboard api, fast copy paste java, clipboard stability, java clipboard bug fix, windows clipboard automation, jni clipboard
+**Keywords:** java clipboard alternative, native clipboard jni, win32 clipboard api, fast copy paste java, clipboard stability, java clipboard bug fix, windows clipboard automation, jni clipboard, clipboard image support, file list clipboard
 
-If you need **reliable clipboard operations** without Java's clipboard bugs, FastClipboard delivers native-level performance with Java simplicity.
+If you need **reliable clipboard operations**, **image transfer**, or **file drag-and-drop** without Java's clipboard bugs, FastClipboard delivers native-level performance with Java simplicity.
 
 ---
 
