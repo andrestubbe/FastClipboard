@@ -367,6 +367,15 @@ MIT License — free for commercial and private use. See [LICENSE](LICENSE) for 
 
 ---
 
+## Related Projects
+
+- [FastHotkey](https://github.com/andrestubbe/FastHotkey) - Ultra-fast global hotkey library
+- [FastRobot](https://github.com/andrestubbe/FastRobot) - High-performance screen capture
+- [FastGraphics](https://github.com/andrestubbe/FastGraphics) - GPU-accelerated graphics
+- [FastTheme](https://github.com/andrestubbe/FastTheme) - OS-aware Display/Theme monitor
+
+---
+
 ## Support the Project
 
 If FastClipboard helps you build something awesome:
