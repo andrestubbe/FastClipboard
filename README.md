@@ -133,6 +133,17 @@ dependencies {
 }
 ```
 
+### Direct Download
+
+Download the pre-built JAR with embedded native library:
+
+**[📥 Download fastclipboard-1.0.0.jar](https://github.com/andrestubbe/FastClipboard/releases/download/v1.0/fastclipboard-1.0.0.jar)** (64 KB)
+
+```bash
+# Run directly
+java -cp fastclipboard-1.0.0.jar fastclipboard.Demo
+```
+
 ---
 
 ## Quick Start
