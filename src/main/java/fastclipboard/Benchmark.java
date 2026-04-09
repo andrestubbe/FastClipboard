@@ -12,12 +12,15 @@ import java.awt.datatransfer.DataFlavor;
  * - Set clipboard text (write)
  * - Get clipboard text (read)
  * - Combined read/write cycle
+ * - Image operations
+ * - File list operations
  */
 public class Benchmark {
     
     private static final int WARMUP_ITERATIONS = 100;
     private static final int BENCHMARK_ITERATIONS = 1000;
     private static final String TEST_TEXT = "Hello, World! This is a benchmark test string for clipboard operations.";
+    private static final int TEST_IMAGE_SIZE = 100; // 100x100 test image
     
     public static void main(String[] args) {
         System.out.println("=== FastClipboard vs Java AWT Clipboard Benchmark ===");
@@ -30,6 +33,8 @@ public class Benchmark {
         System.out.println("Warming up...");
         warmupFastClipboard();
         warmupJavaClipboard();
+        warmupFastClipboardImage();
+        warmupFastClipboardFiles();
         System.out.println();
         
         // Benchmark FastClipboard
@@ -37,6 +42,10 @@ public class Benchmark {
         long fastSetTime = benchmarkFastClipboardSet();
         long fastGetTime = benchmarkFastClipboardGet();
         long fastCycleTime = benchmarkFastClipboardCycle();
+        long fastSetImageTime = benchmarkFastClipboardSetImage();
+        long fastGetImageTime = benchmarkFastClipboardGetImage();
+        long fastSetFilesTime = benchmarkFastClipboardSetFiles();
+        long fastGetFilesTime = benchmarkFastClipboardGetFiles();
         System.out.println();
         
         // Benchmark Java AWT Clipboard
@@ -48,12 +57,19 @@ public class Benchmark {
         
         // Results
         System.out.println("=== Results ===");
-        System.out.printf("Set Text:  FastClipboard=%dμs, Java=%dμs, Speedup=%.2fx%n", 
+        System.out.println("Text Operations:");
+        System.out.printf("  Set Text:  FastClipboard=%dμs, Java=%dμs, Speedup=%.2fx%n", 
             fastSetTime, javaSetTime, (double) javaSetTime / fastSetTime);
-        System.out.printf("Get Text:  FastClipboard=%dμs, Java=%dμs, Speedup=%.2fx%n", 
+        System.out.printf("  Get Text:  FastClipboard=%dμs, Java=%dμs, Speedup=%.2fx%n", 
             fastGetTime, javaGetTime, (double) javaGetTime / fastGetTime);
-        System.out.printf("Full Cycle: FastClipboard=%dμs, Java=%dμs, Speedup=%.2fx%n", 
+        System.out.printf("  Full Cycle: FastClipboard=%dμs, Java=%dμs, Speedup=%.2fx%n", 
             fastCycleTime, javaCycleTime, (double) javaCycleTime / fastCycleTime);
+        System.out.println("Image Operations (FastClipboard only):");
+        System.out.printf("  Set Image: FastClipboard=%dμs%n", fastSetImageTime);
+        System.out.printf("  Get Image: FastClipboard=%dμs%n", fastGetImageTime);
+        System.out.println("File Operations (FastClipboard only):");
+        System.out.printf("  Set Files: FastClipboard=%dμs%n", fastSetFilesTime);
+        System.out.printf("  Get Files: FastClipboard=%dμs%n", fastGetFilesTime);
     }
     
     private static void warmupFastClipboard() {
@@ -73,6 +89,27 @@ public class Benchmark {
             } catch (Exception e) {
                 // Ignore
             }
+        }
+    }
+    
+    private static void warmupFastClipboardImage() {
+        FastClipboard clipboard = new FastClipboard();
+        int[] pixels = new int[TEST_IMAGE_SIZE * TEST_IMAGE_SIZE];
+        for (int i = 0; i < pixels.length; i++) {
+            pixels[i] = 0xFF0000FF; // Blue pixels
+        }
+        for (int i = 0; i < WARMUP_ITERATIONS; i++) {
+            clipboard.setClipboardImage(TEST_IMAGE_SIZE, TEST_IMAGE_SIZE, pixels);
+            clipboard.getClipboardImage();
+        }
+    }
+    
+    private static void warmupFastClipboardFiles() {
+        FastClipboard clipboard = new FastClipboard();
+        String[] files = {"C:\\test1.txt", "C:\\test2.txt"};
+        for (int i = 0; i < WARMUP_ITERATIONS; i++) {
+            clipboard.setClipboardFiles(files);
+            clipboard.getClipboardFiles();
         }
     }
     
@@ -160,6 +197,70 @@ public class Benchmark {
             } catch (Exception e) {
                 // Ignore
             }
+        }
+        
+        long endTime = System.nanoTime();
+        return (endTime - startTime) / 1000; // Convert to microseconds
+    }
+    
+    private static long benchmarkFastClipboardSetImage() {
+        FastClipboard clipboard = new FastClipboard();
+        int[] pixels = new int[TEST_IMAGE_SIZE * TEST_IMAGE_SIZE];
+        for (int i = 0; i < pixels.length; i++) {
+            pixels[i] = 0xFF0000FF; // Blue pixels
+        }
+        
+        long startTime = System.nanoTime();
+        
+        for (int i = 0; i < BENCHMARK_ITERATIONS; i++) {
+            clipboard.setClipboardImage(TEST_IMAGE_SIZE, TEST_IMAGE_SIZE, pixels);
+        }
+        
+        long endTime = System.nanoTime();
+        return (endTime - startTime) / 1000; // Convert to microseconds
+    }
+    
+    private static long benchmarkFastClipboardGetImage() {
+        FastClipboard clipboard = new FastClipboard();
+        int[] pixels = new int[TEST_IMAGE_SIZE * TEST_IMAGE_SIZE];
+        for (int i = 0; i < pixels.length; i++) {
+            pixels[i] = 0xFF0000FF; // Blue pixels
+        }
+        clipboard.setClipboardImage(TEST_IMAGE_SIZE, TEST_IMAGE_SIZE, pixels);
+        
+        long startTime = System.nanoTime();
+        
+        for (int i = 0; i < BENCHMARK_ITERATIONS; i++) {
+            clipboard.getClipboardImage();
+        }
+        
+        long endTime = System.nanoTime();
+        return (endTime - startTime) / 1000; // Convert to microseconds
+    }
+    
+    private static long benchmarkFastClipboardSetFiles() {
+        FastClipboard clipboard = new FastClipboard();
+        String[] files = {"C:\\test1.txt", "C:\\test2.txt"};
+        
+        long startTime = System.nanoTime();
+        
+        for (int i = 0; i < BENCHMARK_ITERATIONS; i++) {
+            clipboard.setClipboardFiles(files);
+        }
+        
+        long endTime = System.nanoTime();
+        return (endTime - startTime) / 1000; // Convert to microseconds
+    }
+    
+    private static long benchmarkFastClipboardGetFiles() {
+        FastClipboard clipboard = new FastClipboard();
+        String[] files = {"C:\\test1.txt", "C:\\test2.txt"};
+        clipboard.setClipboardFiles(files);
+        
+        long startTime = System.nanoTime();
+        
+        for (int i = 0; i < BENCHMARK_ITERATIONS; i++) {
+            clipboard.getClipboardFiles();
         }
         
         long endTime = System.nanoTime();

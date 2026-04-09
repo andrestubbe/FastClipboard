@@ -66,7 +66,9 @@ FastClipboard solves this with:
 ## Key Features
 
 - **Direct Win32 API access** — stable clipboard operations
-- **UTF-8/Unicode text support** — proper encoding
+- **Text support** — UTF-8/Unicode text with proper encoding
+- **Image support** — DIB format (CF_DIB) for bitmap images
+- **File list support** — CF_HDROP format for file operations
 - **Format detection** — check available clipboard formats
 - **Minimal footprint** — small DLL, simple API
 - **MIT licensed** — free for commercial use
@@ -166,6 +168,55 @@ int formatCount = clipboard.getFormatCount();
 System.out.println("Available formats: " + formatCount);
 ```
 
+### Image Operations
+
+```java
+// Copy image to clipboard (RGBA pixel data)
+int width = 100;
+int height = 100;
+int[] pixels = new int[width * height];
+// Fill with RGBA pixel data (0xAARRGGBB)
+for (int i = 0; i < pixels.length; i++) {
+    pixels[i] = 0xFFFF0000; // Red pixels
+}
+boolean success = clipboard.setClipboardImage(width, height, pixels);
+
+// Get image from clipboard
+int[] imageData = clipboard.getClipboardImage();
+if (imageData != null) {
+    int imgWidth = imageData[0];
+    int imgHeight = imageData[1];
+    int[] imgPixels = new int[imageData.length - 2];
+    System.arraycopy(imageData, 2, imgPixels, 0, imgPixels.length);
+}
+
+// Check if clipboard has image
+if (clipboard.hasClipboardImage()) {
+    System.out.println("Clipboard contains image");
+}
+```
+
+### File List Operations
+
+```java
+// Copy file list to clipboard
+String[] files = {"C:\\path\\to\\file1.txt", "C:\\path\\to\\file2.txt"};
+boolean success = clipboard.setClipboardFiles(files);
+
+// Get file list from clipboard
+String[] clipboardFiles = clipboard.getClipboardFiles();
+if (clipboardFiles != null) {
+    for (String file : clipboardFiles) {
+        System.out.println("File: " + file);
+    }
+}
+
+// Check if clipboard has file list
+if (clipboard.hasClipboardFiles()) {
+    System.out.println("Clipboard contains file list");
+}
+```
+
 ---
 
 ## API Reference
@@ -176,6 +227,16 @@ System.out.println("Available formats: " + formatCount);
 - `hasClipboardText()` — Check if clipboard contains text
 - `clearClipboard()` — Clear clipboard contents
 
+### Image Operations
+- `setClipboardImage(int width, int height, int[] pixels)` — Copy RGBA image to clipboard (DIB format)
+- `getClipboardImage()` — Get image from clipboard (returns [width, height, pixelData...])
+- `hasClipboardImage()` — Check if clipboard contains image
+
+### File List Operations
+- `setClipboardFiles(String[] filePaths)` — Copy file list to clipboard (CF_HDROP format)
+- `getClipboardFiles()` — Get file list from clipboard
+- `hasClipboardFiles()` — Check if clipboard contains file list
+
 ### Clipboard Info
 - `isFormatAvailable(int format)` — Check if format is available
 - `getFormatCount()` — Get number of available formats
@@ -184,6 +245,7 @@ System.out.println("Available formats: " + formatCount);
 - `CF_TEXT = 1` — ANSI text
 - `CF_UNICODETEXT = 13` — Unicode text (UTF-16)
 - `CF_BITMAP = 2` — Bitmap image
+- `CF_DIB = 8` — Device Independent Bitmap
 - `CF_HDROP = 15` — File list
 
 ---

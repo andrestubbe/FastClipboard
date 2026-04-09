@@ -57,6 +57,56 @@ public class FastClipboard {
      */
     public native boolean clearClipboard();
     
+    // === Image operations ===
+    
+    /**
+     * Copy image to clipboard (DIB format).
+     * 
+     * @param width Image width
+     * @param height Image height
+     * @param pixels RGBA pixel data (int array)
+     * @return true if successful
+     */
+    public native boolean setClipboardImage(int width, int height, int[] pixels);
+    
+    /**
+     * Get image from clipboard (DIB format).
+     * 
+     * @return int array containing [width, height, pixelData...] or null if no image
+     */
+    public native int[] getClipboardImage();
+    
+    /**
+     * Check if clipboard contains image.
+     * 
+     * @return true if clipboard has image data
+     */
+    public native boolean hasClipboardImage();
+    
+    // === File list operations ===
+    
+    /**
+     * Copy file list to clipboard (CF_HDROP format).
+     * 
+     * @param filePaths Array of file paths
+     * @return true if successful
+     */
+    public native boolean setClipboardFiles(String[] filePaths);
+    
+    /**
+     * Get file list from clipboard (CF_HDROP format).
+     * 
+     * @return Array of file paths, or null if no files
+     */
+    public native String[] getClipboardFiles();
+    
+    /**
+     * Check if clipboard contains file list.
+     * 
+     * @return true if clipboard has file list
+     */
+    public native boolean hasClipboardFiles();
+    
     // === Clipboard info ===
     
     /**
