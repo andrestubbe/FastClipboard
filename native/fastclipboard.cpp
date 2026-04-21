@@ -1,9 +1,50 @@
+/**
+ * @file fastclipboard.cpp
+ * @brief FastClipboard native implementation - Windows clipboard access
+ *
+ * @details Implements Windows clipboard operations for Java including:
+ * - Text: UTF-8/UTF-16 conversion with proper memory management
+ * - Images: DIB (Device Independent Bitmap) format conversion
+ * - Files: HDROP (Drag and Drop) structure handling
+ * - Watcher: WM_DRAWCLIPBOARD message monitoring
+ *
+ * @par Implementation Notes
+ * - Uses GlobalAlloc/GlobalLock for clipboard-compatible memory
+ * - UTF-16LE for Windows clipboard text (CF_UNICODETEXT)
+ * - RGBA to BGRA conversion for image format compatibility
+ * - Shell DragQueryFile for HDROP file enumeration
+ *
+ * @par Security Considerations
+ * - Clipboard is shared system resource
+ * - EmptyClipboard required before SetClipboardData
+ * - Must CloseClipboard even on error paths
+ *
+ * @author FastJava Team
+ * @version 1.0.0
+ * @copyright MIT License
+ */
+
 #include <windows.h>
 #include <shlobj.h>
 #include <jni.h>
 #include <iostream>
 #include "fastclipboard.h"
 
+/// @defgroup JNI_Implementation JNI Implementation
+/// @brief JNI function implementations
+/// @{
+
+/**
+ * @brief Set clipboard text
+ * @details Converts UTF-8 to UTF-16, allocates global memory,
+ *          and sets CF_UNICODETEXT format.
+ * 
+ * @param env JNI environment
+ * @param obj FastClipboard instance
+ * @param text Java string to copy
+ * @return JNI_TRUE if successful
+ * @note EmptyClipboard called before setting data
+ */
 // JNI method implementations
 
 JNIEXPORT jboolean JNICALL Java_fastclipboard_FastClipboard_setClipboardText(JNIEnv *env, jobject obj, jstring text) {
