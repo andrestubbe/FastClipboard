@@ -301,40 +301,7 @@ if (clipboard.hasClipboardFiles()) {
 
 ## Build from Source
 
-### Prerequisites
-
-#### 1. Java Development Kit (JDK) 17 or higher
-**Download:** https://www.oracle.com/java/technologies/downloads/ or https://adoptium.net/
-
-**Verify installation:**
-```bash
-java -version
-javac -version
-```
-
-#### 2. Visual Studio 2019 or 2022 (Community Edition is free)
-**Download:** https://visualstudio.microsoft.com/downloads/
-
-**Required components:**
-- ✅ **Desktop development with C++** workload
-- ✅ **Windows 10/11 SDK**
-- ✅ **MSVC v142/v143 - VS 2019/2022 C++ x64/x86 build tools**
-
-#### 3. Apache Maven 3.8+ (optional, for packaging)
-**Download:** https://maven.apache.org/download.cgi
-
-### Build
-
-```bash
-git clone https://github.com/andrestubbe/fastclipboard.git
-cd fastclipboard
-
-# Compile native DLL
-compile.bat
-
-# Build Java + package
-mvn clean package
-```
+See [COMPILE.md](COMPILE.md) for detailed build instructions.
 
 ---
 
