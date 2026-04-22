@@ -1,4 +1,4 @@
-# FastClipboard — Native Clipboard Access via JNI (2-3× Faster than Java AWT)
+# FastClipboard — Native Clipboard Access via JNI (2-3× Faster than Java AWT) [ALPHA]
 
 **⚡ Ultra-fast native clipboard access — stable copy/paste without Java clipboard bugs**
 
