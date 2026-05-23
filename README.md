@@ -1,5 +1,4 @@
-# FastClipboard — Native Clipboard Access via JNI (2-3× Faster than Java AWT)
-
+# FastClipboard — Native Clipboard Access via JNI (2-3× Faster than Java AWT) [ALPHA] - v0.1.0
 **⚡ Ultra-fast native clipboard access — stable copy/paste without Java clipboard bugs**
 
 [![Build](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
@@ -93,10 +92,10 @@ FastClipboard solves this with:
 
 **Run the benchmark:**
 ```bash
-# Compile native DLL first
+# Compile native DLL first [ALPHA] - v0.1.0
 compile.bat
 
-# Run benchmark
+# Run benchmark [ALPHA] - v0.1.0
 mvn compile exec:java -Dexec.mainClass="fastclipboard.Benchmark"
 ```
 
@@ -140,7 +139,7 @@ Download the pre-built JAR with embedded native library:
 **[📥 Download fastclipboard-1.0.0.jar](https://github.com/andrestubbe/FastClipboard/releases/download/v1.0/fastclipboard-1.0.0.jar)** (64 KB)
 
 ```bash
-# Run directly
+# Run directly [ALPHA] - v0.1.0
 java -cp fastclipboard-1.0.0.jar fastclipboard.Demo
 ```
 
@@ -356,3 +355,4 @@ If FastClipboard helps you build something awesome:
 **Small package. Maximum speed. Zero bloat.** 🚀📋
 
 *Replace buggy Java clipboard with stable native performance!*
+
