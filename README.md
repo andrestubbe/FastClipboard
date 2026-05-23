@@ -1,5 +1,5 @@
-﻿# FastClipboard â€” Native Clipboard Access via JNI (2-3Ã— Faster than Java AWT) [ALPHA] - v0.1.0
-**âš¡ Ultra-fast native clipboard access â€” stable copy/paste without Java clipboard bugs**
+﻿# FastClipboard — Native Clipboard Access via JNI (2-3× Faster than Java AWT) [ALPHA] - v0.1.0
+**⚡ Ultra-fast native clipboard access — stable copy/paste without Java clipboard bugs**
 
 [![Build](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
 [![Java](https://img.shields.io/badge/Java-17+-blue.svg)](https://www.java.com)
@@ -9,7 +9,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/andrestubbe/fastclipboard.svg)](https://github.com/andrestubbe/fastclipboard/stargazers)
 
 ```java
-// Quick Start â€” Stable clipboard operations
+// Quick Start — Stable clipboard operations
 FastClipboard clipboard = new FastClipboard();
 
 // Copy text to clipboard
@@ -59,24 +59,24 @@ If you need **reliable clipboard operations**, **image transfer**, or **file dra
 - Slow performance
 
 FastClipboard solves this with:
-- **Direct Win32 API calls** â€” `OpenClipboard`, `GetClipboardData`, `SetClipboardData`
-- **Stable operation** â€” no ownership issues
-- **UTF-8/Unicode support** â€” proper text encoding
-- **Minimal footprint** â€” 1 header + 1 JNI file + 1 Java class
-- **1-evening implementation** â€” simple and maintainable
+- **Direct Win32 API calls** — `OpenClipboard`, `GetClipboardData`, `SetClipboardData`
+- **Stable operation** — no ownership issues
+- **UTF-8/Unicode support** — proper text encoding
+- **Minimal footprint** — 1 header + 1 JNI file + 1 Java class
+- **1-evening implementation** — simple and maintainable
 
 ---
 
 ## Key Features
 
-- **Direct Win32 API access** â€” stable clipboard operations
-- **Text support** â€” UTF-8/Unicode text with proper encoding
-- **Image support** â€” DIB format (CF_DIB) for bitmap images
-- **File list support** â€” CF_HDROP format for file operations
-- **Format detection** â€” check available clipboard formats
-- **Minimal footprint** â€” small DLL, simple API
-- **MIT licensed** â€” free for commercial use
-- **Windows-only** â€” maximum performance on the most common platform
+- **Direct Win32 API access** — stable clipboard operations
+- **Text support** — UTF-8/Unicode text with proper encoding
+- **Image support** — DIB format (CF_DIB) for bitmap images
+- **File list support** — CF_HDROP format for file operations
+- **Format detection** — check available clipboard formats
+- **Minimal footprint** — small DLL, simple API
+- **MIT licensed** — free for commercial use
+- **Windows-only** — maximum performance on the most common platform
 
 ---
 
@@ -84,9 +84,9 @@ FastClipboard solves this with:
 
 | Operation | Java AWT Clipboard | FastClipboard | Speedup |
 |-----------|-------------------|---------------|---------|
-| Set Text (1000 iterations) | ~5000Î¼s | **~2000Î¼s** | **2.5Ã—** |
-| Get Text (1000 iterations) | ~3000Î¼s | **~1500Î¼s** | **2.0Ã—** |
-| Full Cycle (1000 iterations) | ~8000Î¼s | **~3500Î¼s** | **2.3Ã—** |
+| Set Text (1000 iterations) | ~5000μs | **~2000μs** | **2.5×** |
+| Get Text (1000 iterations) | ~3000μs | **~1500μs** | **2.0×** |
+| Full Cycle (1000 iterations) | ~8000μs | **~3500μs** | **2.3×** |
 
 *Measured on Windows 11, Intel Core i7, Java 17*
 
@@ -168,7 +168,7 @@ clipboard.clearClipboard();
 
 ### Optional Clipboard Watcher (for instant reads)
 
-Enable the watcher for **570Ã— faster** repeated clipboard reads via automatic caching:
+Enable the watcher for **570× faster** repeated clipboard reads via automatic caching:
 
 ```java
 FastClipboard clipboard = new FastClipboard();
@@ -176,10 +176,10 @@ FastClipboard clipboard = new FastClipboard();
 // Enable watcher (opt-in, zero overhead when disabled)
 clipboard.enableWatcher();
 
-// First read fetches from clipboard (~500Î¼s)
+// First read fetches from clipboard (~500μs)
 String text = clipboard.getClipboardText();
 
-// Subsequent reads use cache (~1Î¼s) - 570Ã— faster!
+// Subsequent reads use cache (~1μs) - 570× faster!
 for (int i = 0; i < 1000; i++) {
     String cached = clipboard.getClipboardText(); // No JNI call!
 }
@@ -266,31 +266,31 @@ if (clipboard.hasClipboardFiles()) {
 ## API Reference
 
 ### Text Operations
-- `setClipboardText(String text)` â€” Copy text to clipboard
-- `getClipboardText()` â€” Get text from clipboard
-- `hasClipboardText()` â€” Check if clipboard contains text
-- `clearClipboard()` â€” Clear clipboard contents
+- `setClipboardText(String text)` — Copy text to clipboard
+- `getClipboardText()` — Get text from clipboard
+- `hasClipboardText()` — Check if clipboard contains text
+- `clearClipboard()` — Clear clipboard contents
 
 ### Image Operations
-- `setClipboardImage(int width, int height, int[] pixels)` â€” Copy RGBA image to clipboard (DIB format)
-- `getClipboardImage()` â€” Get image from clipboard (returns [width, height, pixelData...])
-- `hasClipboardImage()` â€” Check if clipboard contains image
+- `setClipboardImage(int width, int height, int[] pixels)` — Copy RGBA image to clipboard (DIB format)
+- `getClipboardImage()` — Get image from clipboard (returns [width, height, pixelData...])
+- `hasClipboardImage()` — Check if clipboard contains image
 
 ### File List Operations
-- `setClipboardFiles(String[] filePaths)` â€” Copy file list to clipboard (CF_HDROP format)
-- `getClipboardFiles()` â€” Get file list from clipboard
-- `hasClipboardFiles()` â€” Check if clipboard contains file list
+- `setClipboardFiles(String[] filePaths)` — Copy file list to clipboard (CF_HDROP format)
+- `getClipboardFiles()` — Get file list from clipboard
+- `hasClipboardFiles()` — Check if clipboard contains file list
 
 ### Clipboard Info
-- `isFormatAvailable(int format)` â€” Check if format is available
-- `getFormatCount()` â€” Get number of available formats
+- `isFormatAvailable(int format)` — Check if format is available
+- `getFormatCount()` — Get number of available formats
 
 ### Format Constants
-- `CF_TEXT = 1` â€” ANSI text
-- `CF_UNICODETEXT = 13` â€” Unicode text (UTF-16)
-- `CF_BITMAP = 2` â€” Bitmap image
-- `CF_DIB = 8` â€” Device Independent Bitmap
-- `CF_HDROP = 15` â€” File list
+- `CF_TEXT = 1` — ANSI text
+- `CF_UNICODETEXT = 13` — Unicode text (UTF-16)
+- `CF_BITMAP = 2` — Bitmap image
+- `CF_DIB = 8` — Device Independent Bitmap
+- `CF_HDROP = 15` — File list
 
 ---
 
@@ -304,28 +304,28 @@ See [COMPILE.md](COMPILE.md) for detailed build instructions.
 
 | Platform | Version | Status |
 |----------|---------|--------|
-| Windows 11 | v1.0 | âœ… Full support (Win32 API) |
-| Windows 10 | v1.0 | âœ… Full support (Win32 API) |
-| Linux | â€” | âŒ Not planned |
-| macOS | â€” | âŒ Not planned |
+| Windows 11 | v1.0 | ✅ Full support (Win32 API) |
+| Windows 10 | v1.0 | ✅ Full support (Win32 API) |
+| Linux | — | ❌ Not planned |
+| macOS | — | ❌ Not planned |
 
-**Windows-only by design** â€” we focus on maximum performance on the most common platform.
+**Windows-only by design** — we focus on maximum performance on the most common platform.
 
 ---
 
 ## Use Cases
 
-- **Automation scripts** â€” reliable clipboard operations
-- **Data processing pipelines** â€” fast text transfer
-- **Bot development** â€” stable clipboard interaction
-- **Test automation** â€” consistent clipboard behavior
-- **Desktop applications** â€” bug-free clipboard access
+- **Automation scripts** — reliable clipboard operations
+- **Data processing pipelines** — fast text transfer
+- **Bot development** — stable clipboard interaction
+- **Test automation** — consistent clipboard behavior
+- **Desktop applications** — bug-free clipboard access
 
 ---
 
 ## License
 
-MIT License â€” free for commercial and private use. See [LICENSE](LICENSE) for details.
+MIT License — free for commercial and private use. See [LICENSE](LICENSE) for details.
 
 ---
 
@@ -341,14 +341,14 @@ MIT License â€” free for commercial and private use. See [LICENSE](LICENSE)
 ## Support the Project
 
 If FastClipboard helps you build something awesome:
-- **Star** the repository â­
+- **Star** the repository ⭐
 - **Share** with other developers
 - **Report** issues and suggest features
 - **Contribute** improvements via pull requests
 
 ---
 
-**Small package. Maximum speed. Zero bloat.** ðŸš€ðŸ“‹
+**Small package. Maximum speed. Zero bloat.** 🚀📋
 
 *Replace buggy Java clipboard with stable native performance!*
 
