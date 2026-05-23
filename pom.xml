@@ -7,9 +7,7 @@
 
     <groupId>com.github.andrestubbe</groupId>
             <artifactId>fastclipboard</artifactId>
-           <version>0.1.0</version>
-     <version>0.1.0</version>
-     <version>0.1.0</version>
+    <version>0.1.0</version>
     <packaging>jar</packaging>
 
     <name>FastClipboard</name>
@@ -184,3 +182,4 @@
         </snapshotRepository>
     </distributionManagement>
 </project>
+
