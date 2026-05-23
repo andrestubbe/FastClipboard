@@ -356,3 +356,4 @@ If FastClipboard helps you build something awesome:
 
 *Replace buggy Java clipboard with stable native performance!*
 
+
