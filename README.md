@@ -103,9 +103,10 @@ mvn compile exec:java -Dexec.mainClass="fastclipboard.Benchmark"
 
 ## Installation
 
-### Maven
+### Option 1: Maven (Recommended)
+Add the JitPack repository and the dependencies to your `pom.xml`:
 
-```xml
+`xml
 <repositories>
     <repository>
         <id>jitpack.io</id>
@@ -113,37 +114,32 @@ mvn compile exec:java -Dexec.mainClass="fastclipboard.Benchmark"
     </repository>
 </repositories>
 
-<dependency>
-    <groupId>com.github.andrestubbe</groupId>
-    <artifactId>fastclipboard</artifactId>
-    <version>1.0.0</version>
-</dependency>
-```
+<dependencies>
+    <!-- FastClipboard Library -->
+    <dependency>
+        <groupId>com.github.andrestubbe</groupId>
+        <artifactId>fastclipboard</artifactId>
+        <version>v0.1.0</version>
+    </dependency>
+</dependencies>
+`
 
-### Gradle
-
-```groovy
+### Option 2: Gradle (via JitPack)
+`groovy
 repositories {
     maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-    implementation 'com.github.andrestubbe:fastclipboard:1.0.0'
+    implementation 'com.github.andrestubbe:.1.0'
 }
-```
+`
 
-### Direct Download
+### Option 3: Direct Download (No Build Tool)
+Download the latest JARs directly to add them to your classpath:
 
-Download the pre-built JAR with embedded native library:
+1. 📦 **[fastclipboard-v0.1.0.jar](https://github.com/andrestubbe/FastClipboard/releases/download/v0.1.0/fastclipboard-v0.1.0.jar)** (The Core Library)
 
-**[📥 Download fastclipboard-1.0.0.jar](https://github.com/andrestubbe/FastClipboard/releases/download/v1.0/fastclipboard-1.0.0.jar)** (64 KB)
-
-```bash
-# Run directly [ALPHA] - v0.1.0
-java -cp fastclipboard-1.0.0.jar fastclipboard.Demo
-```
-
----
 
 ## Quick Start
 
