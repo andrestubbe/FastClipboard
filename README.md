@@ -1,13 +1,6 @@
 ﻿# FastClipboard — Native Clipboard Access via JNI (2-3× Faster than Java AWT) [ALPHA] - v0.1.0
 **⚡ Ultra-fast native clipboard access — stable copy/paste without Java clipboard bugs**
 
-[![Build](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
-[![Java](https://img.shields.io/badge/Java-17+-blue.svg)](https://www.java.com)
-[![Platform](https://img.shields.io/badge/Platform-Windows%2010+-lightgrey.svg)]()
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![JitPack](https://jitpack.io/v/andrestubbe/FastClipboard.svg)](https://jitpack.io/#andrestubbe/FastClipboard)
-[![GitHub stars](https://img.shields.io/github/stars/andrestubbe/fastclipboard.svg)](https://github.com/andrestubbe/fastclipboard/stargazers)
-
 ```java
 // Quick Start — Stable clipboard operations
 FastClipboard clipboard = new FastClipboard();
@@ -32,6 +25,12 @@ FastClipboard is a **high-performance Java clipboard library** that replaces `ja
 **Keywords:** java clipboard alternative, native clipboard jni, win32 clipboard api, fast copy paste java, clipboard stability, java clipboard bug fix, windows clipboard automation, jni clipboard, clipboard image support, file list clipboard
 
 If you need **reliable clipboard operations**, **image transfer**, or **file drag-and-drop** without Java's clipboard bugs, FastClipboard delivers native-level performance with Java simplicity.
+
+[![Status](https://img.shields.io/badge/status-v0.1.0-brightgreen.svg)](https://github.com/andrestubbe/FastClipboard/releases/tag/v0.1.0)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Java](https://img.shields.io/badge/Java-17+-blue.svg)](https://www.java.com)
+[![Platform](https://img.shields.io/badge/Platform-Windows%2010+-lightgrey.svg)]()
+[![JitPack](https://img.shields.io/badge/JitPack-ready-green.svg)](https://jitpack.io/#andrestubbe)
 
 ---
 
