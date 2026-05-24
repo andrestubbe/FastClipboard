@@ -8,9 +8,13 @@
 
 **⚡ Ultra-fast native clipboard access — stable copy/paste without Java clipboard bugs**
 
-FastClipboard is a **high-performance Java clipboard library** that replaces `java.awt.Toolkit.getDefaultToolkit().getSystemClipboard()` with a **native Windows backend** using Win32 API calls. Built for **stable text operations**, **image handling**, **file transfer**, and **format detection**. Supports **CF_UNICODETEXT**, **CF_DIB** (images), and **CF_HDROP** (file lists) formats.
+FastClipboard is a **high-performance Java clipboard library** that replaces
+`java.awt.Toolkit.getDefaultToolkit().getSystemClipboard()` with a **native Windows backend** using Win32 API calls.
+Built for **stable text operations**, **image handling**, **file transfer**, and **format detection**. Supports *
+*CF_UNICODETEXT**, **CF_DIB** (images), and **CF_HDROP** (file lists) formats.
 
-If you need **reliable clipboard operations**, **image transfer**, or **file drag-and-drop** without Java's clipboard bugs, FastClipboard delivers native-level performance with Java simplicity.
+If you need **reliable clipboard operations**, **image transfer**, or **file drag-and-drop** without Java's clipboard
+bugs, FastClipboard delivers native-level performance with Java simplicity.
 
 [![FastFileIndex Showcase](docs/screenshot.png)](https://www.youtube.com/watch?v=BZsqQl7WqWk)
 
@@ -19,21 +23,25 @@ If you need **reliable clipboard operations**, **image transfer**, or **file dra
 FastClipboard clipboard = new FastClipboard();
 
 // Copy text to clipboard
-clipboard.setClipboardText("Hello, World!");
+clipboard.
+
+setClipboardText("Hello, World!");
 
 // Get text from clipboard
 String text = clipboard.getClipboardText();
 
 // Copy image to clipboard
 int[] pixels = new int[100 * 100];
-clipboard.setClipboardImage(100, 100, pixels);
+clipboard.
+
+setClipboardImage(100,100,pixels);
 
 // Copy file list to clipboard
 String[] files = {"C:\\file1.txt", "C:\\file2.txt"};
-clipboard.setClipboardFiles(files);
+clipboard.
+
+setClipboardFiles(files);
 ```
-
-
 
 ---
 
@@ -55,12 +63,14 @@ clipboard.setClipboardFiles(files);
 ## Why FastClipboard?
 
 `java.awt.Toolkit.getDefaultToolkit().getSystemClipboard()` is convenient but buggy:
+
 - Clipboard ownership issues
 - Intermittent failures
 - Thread-safety problems
 - Slow performance
 
 FastClipboard solves this with:
+
 - **Direct Win32 API calls** — `OpenClipboard`, `GetClipboardData`, `SetClipboardData`
 - **Stable operation** — no ownership issues
 - **UTF-8/Unicode support** — proper text encoding
@@ -84,15 +94,16 @@ FastClipboard solves this with:
 
 ## Performance Benchmarks
 
-| Operation | Java AWT Clipboard | FastClipboard | Speedup |
-|-----------|-------------------|---------------|---------|
-| Set Text (1000 iterations) | ~5000μs | **~2000μs** | **2.5×** |
-| Get Text (1000 iterations) | ~3000μs | **~1500μs** | **2.0×** |
-| Full Cycle (1000 iterations) | ~8000μs | **~3500μs** | **2.3×** |
+| Operation                    | Java AWT Clipboard | FastClipboard | Speedup  |
+|------------------------------|--------------------|---------------|----------|
+| Set Text (1000 iterations)   | ~5000μs            | **~2000μs**   | **2.5×** |
+| Get Text (1000 iterations)   | ~3000μs            | **~1500μs**   | **2.0×** |
+| Full Cycle (1000 iterations) | ~8000μs            | **~3500μs**   | **2.3×** |
 
 *Measured on Windows 11, Intel Core i7, Java 17*
 
 **Run the benchmark:**
+
 ```bash
 # Compile native DLL first
  [ALPHA] - v0.1.0
@@ -108,9 +119,11 @@ mvn compile exec:java -Dexec.mainClass="fastclipboard.Benchmark"
 ## Installation
 
 ### Option 1: Maven (Recommended)
+
 Add the JitPack repository and the dependencies to your `pom.xml`:
 
 ```xml
+
 <repositories>
     <repository>
         <id>jitpack.io</id>
@@ -119,16 +132,17 @@ Add the JitPack repository and the dependencies to your `pom.xml`:
 </repositories>
 
 <dependencies>
-    <!-- FastClipboard Library -->
-    <dependency>
-        <groupId>com.github.andrestubbe</groupId>
-        <artifactId>fastclipboard</artifactId>
-        <version>v0.1.0</version>
-    </dependency>
+<!-- FastClipboard Library -->
+<dependency>
+    <groupId>com.github.andrestubbe</groupId>
+    <artifactId>fastclipboard</artifactId>
+    <version>v0.1.0</version>
+</dependency>
 </dependencies>
 ```
 
 ### Option 2: Gradle (via JitPack)
+
 ```groovy
 repositories {
     maven { url 'https://jitpack.io' }
@@ -140,10 +154,12 @@ dependencies {
 ```
 
 ### Option 3: Direct Download (No Build Tool)
+
 Download the latest JARs directly to add them to your classpath:
 
-1. 📦 **[fastclipboard-v0.1.0.jar](https://github.com/andrestubbe/FastClipboard/releases/download/v0.1.0/fastclipboard-v0.1.0.jar)** (The Core Library)
-
+1. 📦 *
+   *[fastclipboard-v0.1.0.jar](https://github.com/andrestubbe/FastClipboard/releases/download/v0.1.0/fastclipboard-v0.1.0.jar)
+   ** (The Core Library)
 
 ## Quick Start
 
@@ -159,15 +175,23 @@ boolean success = clipboard.setClipboardText("Hello, World!");
 
 // Get text from clipboard
 String text = clipboard.getClipboardText();
-System.out.println("Clipboard: " + text);
+System.out.
+
+println("Clipboard: "+text);
 
 // Check if clipboard has text
-if (clipboard.hasClipboardText()) {
-    System.out.println("Clipboard contains text");
+if(clipboard.
+
+hasClipboardText()){
+        System.out.
+
+println("Clipboard contains text");
 }
 
 // Clear clipboard
-clipboard.clearClipboard();
+        clipboard.
+
+clearClipboard();
 ```
 
 ### Optional Clipboard Watcher (for instant reads)
@@ -178,27 +202,35 @@ Enable the watcher for **570× faster** repeated clipboard reads via automatic c
 FastClipboard clipboard = new FastClipboard();
 
 // Enable watcher (opt-in, zero overhead when disabled)
-clipboard.enableWatcher();
+clipboard.
+
+enableWatcher();
 
 // First read fetches from clipboard (~500μs)
 String text = clipboard.getClipboardText();
 
 // Subsequent reads use cache (~1μs) - 570× faster!
-for (int i = 0; i < 1000; i++) {
-    String cached = clipboard.getClipboardText(); // No JNI call!
+for(
+int i = 0;
+i< 1000;i++){
+String cached = clipboard.getClipboardText(); // No JNI call!
 }
 
 // Cache auto-invalidates when clipboard changes externally
 // Disable when done
-clipboard.disableWatcher();
+        clipboard.
+
+disableWatcher();
 ```
 
 **When to use:**
+
 - Bots/Agents with frequent clipboard polling
 - Vision pipelines reading clipboard repeatedly
 - Any scenario with >100 reads/second
 
 **Zero overhead design:**
+
 - Disabled by default - no threads, no events
 - Opt-in only when needed
 - Automatically invalidates cache on clipboard changes
@@ -207,13 +239,17 @@ clipboard.disableWatcher();
 
 ```java
 // Check if specific format is available
-if (clipboard.isFormatAvailable(FastClipboard.CF_UNICODETEXT)) {
-    System.out.println("Unicode text available");
+if(clipboard.isFormatAvailable(FastClipboard.CF_UNICODETEXT)){
+        System.out.
+
+println("Unicode text available");
 }
 
 // Get number of available formats
 int formatCount = clipboard.getFormatCount();
-System.out.println("Available formats: " + formatCount);
+System.out.
+
+println("Available formats: "+formatCount);
 ```
 
 ### Image Operations
@@ -224,23 +260,31 @@ int width = 100;
 int height = 100;
 int[] pixels = new int[width * height];
 // Fill with RGBA pixel data (0xAARRGGBB)
-for (int i = 0; i < pixels.length; i++) {
-    pixels[i] = 0xFFFF0000; // Red pixels
-}
+for(
+int i = 0;
+i<pixels.length;i++){
+pixels[i]=0xFFFF0000; // Red pixels
+        }
 boolean success = clipboard.setClipboardImage(width, height, pixels);
 
 // Get image from clipboard
 int[] imageData = clipboard.getClipboardImage();
-if (imageData != null) {
-    int imgWidth = imageData[0];
-    int imgHeight = imageData[1];
-    int[] imgPixels = new int[imageData.length - 2];
-    System.arraycopy(imageData, 2, imgPixels, 0, imgPixels.length);
+if(imageData !=null){
+int imgWidth = imageData[0];
+int imgHeight = imageData[1];
+int[] imgPixels = new int[imageData.length - 2];
+    System.
+
+arraycopy(imageData, 2,imgPixels, 0,imgPixels.length);
 }
 
 // Check if clipboard has image
-if (clipboard.hasClipboardImage()) {
-    System.out.println("Clipboard contains image");
+        if(clipboard.
+
+hasClipboardImage()){
+        System.out.
+
+println("Clipboard contains image");
 }
 ```
 
@@ -253,15 +297,22 @@ boolean success = clipboard.setClipboardFiles(files);
 
 // Get file list from clipboard
 String[] clipboardFiles = clipboard.getClipboardFiles();
-if (clipboardFiles != null) {
-    for (String file : clipboardFiles) {
-        System.out.println("File: " + file);
+if(clipboardFiles !=null){
+        for(
+String file :clipboardFiles){
+        System.out.
+
+println("File: "+file);
     }
-}
+            }
 
 // Check if clipboard has file list
-if (clipboard.hasClipboardFiles()) {
-    System.out.println("Clipboard contains file list");
+            if(clipboard.
+
+hasClipboardFiles()){
+        System.out.
+
+println("Clipboard contains file list");
 }
 ```
 
@@ -270,50 +321,36 @@ if (clipboard.hasClipboardFiles()) {
 ## API Reference
 
 ### Text Operations
+
 - `setClipboardText(String text)` — Copy text to clipboard
 - `getClipboardText()` — Get text from clipboard
 - `hasClipboardText()` — Check if clipboard contains text
 - `clearClipboard()` — Clear clipboard contents
 
 ### Image Operations
+
 - `setClipboardImage(int width, int height, int[] pixels)` — Copy RGBA image to clipboard (DIB format)
 - `getClipboardImage()` — Get image from clipboard (returns [width, height, pixelData...])
 - `hasClipboardImage()` — Check if clipboard contains image
 
 ### File List Operations
+
 - `setClipboardFiles(String[] filePaths)` — Copy file list to clipboard (CF_HDROP format)
 - `getClipboardFiles()` — Get file list from clipboard
 - `hasClipboardFiles()` — Check if clipboard contains file list
 
 ### Clipboard Info
+
 - `isFormatAvailable(int format)` — Check if format is available
 - `getFormatCount()` — Get number of available formats
 
 ### Format Constants
+
 - `CF_TEXT = 1` — ANSI text
 - `CF_UNICODETEXT = 13` — Unicode text (UTF-16)
 - `CF_BITMAP = 2` — Bitmap image
 - `CF_DIB = 8` — Device Independent Bitmap
 - `CF_HDROP = 15` — File list
-
----
-
-## Build from Source
-
-See [COMPILE.md](COMPILE.md) for detailed build instructions.
-
----
-
-## Platform Support
-
-| Platform | Version | Status |
-|----------|---------|--------|
-| Windows 11 | v1.0 | ✅ Full support (Win32 API) |
-| Windows 10 | v1.0 | ✅ Full support (Win32 API) |
-| Linux | — | ❌ Not planned |
-| macOS | — | ❌ Not planned |
-
-**Windows-only by design** — we focus on maximum performance on the most common platform.
 
 ---
 
@@ -327,32 +364,41 @@ See [COMPILE.md](COMPILE.md) for detailed build instructions.
 
 ---
 
+## Documentation
+
+* **[COMPILE.md](COMPILE.md)**: Full compilation guide (MSVC C++17 build chain + JNI Setup).
+* **[REFERENCE.md](REFERENCE.md)**: Full API descriptions, border configurations, and codepoint index.
+* **[PHILOSOPHIE.md](PHILOSOPHIE.md)**: The engineering rationale for zero-allocation performance.
+* **[ROADMAP.md](ROADMAP.md)**: Future milestones and planned features.
+
+---
+
+## Platform Support
+
+| Platform      | Status            |
+|---------------|-------------------|
+| Windows 10/11 | ✅ Fully Supported |
+| Linux         | 🚧 Planned        |
+| macOS         | 🚧 Planned        |
+
+---
+
 ## License
 
-MIT License — free for commercial and private use. See [LICENSE](LICENSE) for details.
+MIT License — See [LICENSE](LICENSE) file for details.
 
 ---
 
 ## Related Projects
 
-- [FastHotkey](https://github.com/andrestubbe/FastHotkey) - Ultra-fast global hotkey library
-- [FastRobot](https://github.com/andrestubbe/FastRobot) - High-performance screen capture
-- [FastGraphics](https://github.com/andrestubbe/FastGraphics) - GPU-accelerated graphics
-- [FastTheme](https://github.com/andrestubbe/FastTheme) - OS-aware Display/Theme monitor
+- [FastFileIndex](https://github.com/andrestubbe/FastFileIndex) - Binary file indexing with mmap support
+- [FastFileSearch](https://github.com/andrestubbe/FastFileSearch) - Prefix Trie, N-Gram index, and Ranking engine
+- [FastFileWatch](https://github.com/andrestubbe/FastFileWatch) - USN Journal-based live file monitoring
+- [FastCore](https://github.com/andrestubbe/FastCore) - Unified JNI loader and platform abstraction
 
 ---
 
-## Support the Project
-
-If FastClipboard helps you build something awesome:
-- **Star** the repository ⭐
-- **Share** with other developers
-- **Report** issues and suggest features
-- **Contribute** improvements via pull requests
-
----
-
-**Small package. Maximum speed. Zero bloat.** 🚀📋
+**Part of the FastJava Ecosystem** — *Making the JVM faster. Small package. Maximum speed. Zero bloat. 🚀📋*
 
 *Replace buggy Java clipboard with stable native performance!*
 
