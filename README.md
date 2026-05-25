@@ -6,6 +6,8 @@
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010+-lightgrey.svg)]()
 [![JitPack](https://img.shields.io/badge/JitPack-ready-green.svg)](https://jitpack.io/#andrestubbe)
 
+---
+
 **⚡ Ultra-fast native clipboard access — stable copy/paste without Java clipboard bugs**
 
 FastClipboard is a **high-performance Java clipboard library** that replaces
@@ -15,6 +17,8 @@ Built for **stable text operations**, **image handling**, **file transfer**, and
 
 If you need **reliable clipboard operations**, **image transfer**, or **file drag-and-drop** without Java's clipboard
 bugs, FastClipboard delivers native-level performance with Java simplicity.
+
+---
 
 [![FastFileIndex Showcase](docs/screenshot.png)](https://www.youtube.com/watch?v=BZsqQl7WqWk)
 
