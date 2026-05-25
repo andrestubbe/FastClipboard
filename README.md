@@ -18,31 +18,6 @@ bugs, FastClipboard delivers native-level performance with Java simplicity.
 
 [![FastFileIndex Showcase](docs/screenshot.png)](https://www.youtube.com/watch?v=BZsqQl7WqWk)
 
-```java
-// Quick Start — Stable clipboard operations
-FastClipboard clipboard = new FastClipboard();
-
-// Copy text to clipboard
-clipboard.
-
-setClipboardText("Hello, World!");
-
-// Get text from clipboard
-String text = clipboard.getClipboardText();
-
-// Copy image to clipboard
-int[] pixels = new int[100 * 100];
-clipboard.
-
-setClipboardImage(100,100,pixels);
-
-// Copy file list to clipboard
-String[] files = {"C:\\file1.txt", "C:\\file2.txt"};
-clipboard.
-
-setClipboardFiles(files);
-```
-
 ---
 
 ## Table of Contents
@@ -57,6 +32,77 @@ setClipboardFiles(files);
 - [Platform Support](#platform-support)
 - [Use Cases](#use-cases)
 - [License](#license)
+
+---
+
+## Quick Start
+
+
+```java
+// Quick Start — Stable clipboard operations
+FastClipboard clipboard = new FastClipboard();
+
+// Copy text to clipboard
+clipboard. setClipboardText("Hello, World!");
+
+// Get text from clipboard
+String text = clipboard.getClipboardText();
+
+// Copy image to clipboard
+int[] pixels = new int[100 * 100];
+clipboard.setClipboardImage(100,100,pixels);
+
+// Copy file list to clipboard
+String[] files = {"C:\\file1.txt", "C:\\file2.txt"};
+clipboard.setClipboardFiles(files);
+```
+
+
+### Basic Usage
+
+```java
+import fastclipboard.FastClipboard;
+
+FastClipboard clipboard = new FastClipboard();
+
+// Copy text to clipboard
+boolean success = clipboard.setClipboardText("Hello, World!");
+
+// Get text from clipboard
+String text = clipboard.getClipboardText();
+System.out.println("Clipboard: "+text);
+
+// Check if clipboard has text
+if(clipboard.hasClipboardText()){
+        System.out.println("Clipboard contains text");
+}
+
+// Clear clipboard
+clipboard.clearClipboard();
+```
+
+### Optional Clipboard Watcher (for instant reads)
+
+Enable the watcher for **570× faster** repeated clipboard reads via automatic caching:
+
+```java
+FastClipboard clipboard = new FastClipboard();
+
+// Enable watcher (opt-in, zero overhead when disabled)
+clipboard.enableWatcher();
+
+// First read fetches from clipboard (~500μs)
+String text = clipboard.getClipboardText();
+
+// Subsequent reads use cache (~1μs) - 570× faster!
+for(int i = 0; i< 1000;i++){
+    String cached = clipboard.getClipboardText(); // No JNI call!
+}
+
+// Cache auto-invalidates when clipboard changes externally
+// Disable when done
+        clipboard.disableWatcher();
+```
 
 ---
 
@@ -161,67 +207,7 @@ Download the latest JARs directly to add them to your classpath:
    *[fastclipboard-v0.1.0.jar](https://github.com/andrestubbe/FastClipboard/releases/download/v0.1.0/fastclipboard-v0.1.0.jar)
    ** (The Core Library)
 
-## Quick Start
 
-### Basic Usage
-
-```java
-import fastclipboard.FastClipboard;
-
-FastClipboard clipboard = new FastClipboard();
-
-// Copy text to clipboard
-boolean success = clipboard.setClipboardText("Hello, World!");
-
-// Get text from clipboard
-String text = clipboard.getClipboardText();
-System.out.
-
-println("Clipboard: "+text);
-
-// Check if clipboard has text
-if(clipboard.
-
-hasClipboardText()){
-        System.out.
-
-println("Clipboard contains text");
-}
-
-// Clear clipboard
-        clipboard.
-
-clearClipboard();
-```
-
-### Optional Clipboard Watcher (for instant reads)
-
-Enable the watcher for **570× faster** repeated clipboard reads via automatic caching:
-
-```java
-FastClipboard clipboard = new FastClipboard();
-
-// Enable watcher (opt-in, zero overhead when disabled)
-clipboard.
-
-enableWatcher();
-
-// First read fetches from clipboard (~500μs)
-String text = clipboard.getClipboardText();
-
-// Subsequent reads use cache (~1μs) - 570× faster!
-for(
-int i = 0;
-i< 1000;i++){
-String cached = clipboard.getClipboardText(); // No JNI call!
-}
-
-// Cache auto-invalidates when clipboard changes externally
-// Disable when done
-        clipboard.
-
-disableWatcher();
-```
 
 **When to use:**
 
