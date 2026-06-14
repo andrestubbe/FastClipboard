@@ -1,4 +1,4 @@
-# FastClipboard 0.1.0 [ALPHA]  Native Clipboard Access via JNI (2-3 Faster than Java AWT)
+# FastClipboard 0.1.0 [ALPHA-2026-06] — Native Clipboard Access via JNI (2-3 Faster than Java AWT)
 
 [![Status](https://img.shields.io/badge/status-0.1.0-brightgreen.svg)](https://github.com/andrestubbe/FastClipboard/releases/tag/0.1.0)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
