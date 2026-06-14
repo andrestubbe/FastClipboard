@@ -8,7 +8,7 @@
 
 ---
 
-**âš¡ Ultra-fast native clipboard access  stable copy/paste without Java clipboard bugs**
+**📋 Ultra-fast native clipboard access — stable copy/paste without Java clipboard bugs.**
 
 FastClipboard is a **high-performance Java clipboard library** that replaces
 `java.awt.Toolkit.getDefaultToolkit().getSystemClipboard()` with a **native Windows backend** using Win32 API calls.
@@ -131,14 +131,14 @@ FastClipboard solves this with:
 
 ## Key Features
 
-- **Direct Win32 API access**  stable clipboard operations
-- **Text support**  UTF-8/Unicode text with proper encoding
-- **Image support**  DIB format (CF_DIB) for bitmap images
-- **File list support**  CF_HDROP format for file operations
-- **Format detection**  check available clipboard formats
-- **Minimal footprint**  small DLL, simple API
-- **MIT licensed**  free for commercial use
-- **Windows-only**  maximum performance on the most common platform
+- **⚡ Direct Win32 API Access**: Stable clipboard operations without JVM-related bugs.
+- **🔤 Text Support**: UTF-8/Unicode text with proper encoding and zero corruption.
+- **🖼️ Image Support**: DIB format (CF_DIB) for bitmap images.
+- **📂 File List Support**: CF_HDROP format for file operations.
+- **🔍 Format Detection**: Easily check available clipboard formats.
+- **📦 Minimal Footprint**: Small DLL, simple API, and zero external dependencies.
+- **⚙️ Windows-Optimized**: Maximum performance on the Win32 subsystem.
+- **🛡️ MIT Licensed**: Free for commercial and open-source use.
 
 ---
 
@@ -207,9 +207,7 @@ dependencies {
 
 Download the latest JARs directly to add them to your classpath:
 
-1. ðŸš€ *
-   *[fastclipboard-0.1.0.jar](https://github.com/andrestubbe/FastClipboard/releases/download/0.1.0/fastclipboard-0.1.0.jar)
-   ** (The Core Library)
+1. 📦 **[fastclipboard-0.1.0.jar](https://github.com/andrestubbe/FastClipboard/releases/download/0.1.0/fastclipboard-0.1.0.jar)** (The Core Library)
 
 
 
@@ -367,9 +365,9 @@ println("Clipboard contains file list");
 
 | Platform      | Status            |
 |---------------|-------------------|
-| Windows 10/11 | ? Fully Supported |
-| Linux         | ðŸš€ Planned        |
-| macOS         | ðŸš€ Planned        |
+| Windows 10/11 | ✅ Fully Supported |
+| Linux         | 🔗 Planned        |
+| macOS         | 🔗 Planned        |
 
 ---
 
@@ -388,7 +386,7 @@ MIT License  See [LICENSE](LICENSE) file for details.
 
 ---
 
-**Part of the FastJava Ecosystem**  *Making the JVM faster. Small package. Maximum speed. Zero bloat. ðŸš€ðŸš€*
+**Part of the FastJava Ecosystem** — *Making the JVM faster. Small package. Maximum speed. Zero bloat. 🚀📋*
 
 *Replace buggy Java clipboard with stable native performance!*
 
