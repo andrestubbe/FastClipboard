@@ -227,17 +227,13 @@ Download the latest JARs directly to add them to your classpath:
 
 ```java
 // Check if specific format is available
-if(clipboard.isFormatAvailable(FastClipboard.CF_UNICODETEXT)){
-        System.out.
-
-println("Unicode text available");
+if (clipboard.isFormatAvailable(FastClipboard.CF_UNICODETEXT)) {
+    System.out.println("Unicode text available");
 }
 
 // Get number of available formats
 int formatCount = clipboard.getFormatCount();
-System.out.
-
-println("Available formats: "+formatCount);
+System.out.println("Available formats: " + formatCount);
 ```
 
 ### Image Operations
@@ -248,31 +244,23 @@ int width = 100;
 int height = 100;
 int[] pixels = new int[width * height];
 // Fill with RGBA pixel data (0xAARRGGBB)
-for(
-int i = 0;
-i<pixels.length;i++){
-pixels[i]=0xFFFF0000; // Red pixels
-        }
+for (int i = 0; i < pixels.length; i++) {
+    pixels[i] = 0xFFFF0000; // Red pixels
+}
 boolean success = clipboard.setClipboardImage(width, height, pixels);
 
 // Get image from clipboard
 int[] imageData = clipboard.getClipboardImage();
-if(imageData !=null){
-int imgWidth = imageData[0];
-int imgHeight = imageData[1];
-int[] imgPixels = new int[imageData.length - 2];
-    System.
-
-arraycopy(imageData, 2,imgPixels, 0,imgPixels.length);
+if (imageData != null) {
+    int imgWidth = imageData[0];
+    int imgHeight = imageData[1];
+    int[] imgPixels = new int[imageData.length - 2];
+    System.arraycopy(imageData, 2, imgPixels, 0, imgPixels.length);
 }
 
 // Check if clipboard has image
-        if(clipboard.
-
-hasClipboardImage()){
-        System.out.
-
-println("Clipboard contains image");
+if (clipboard.hasClipboardImage()) {
+    System.out.println("Clipboard contains image");
 }
 ```
 
@@ -285,22 +273,15 @@ boolean success = clipboard.setClipboardFiles(files);
 
 // Get file list from clipboard
 String[] clipboardFiles = clipboard.getClipboardFiles();
-if(clipboardFiles !=null){
-        for(
-String file :clipboardFiles){
-        System.out.
-
-println("File: "+file);
+if (clipboardFiles != null) {
+    for (String file : clipboardFiles) {
+        System.out.println("File: " + file);
     }
-            }
+}
 
 // Check if clipboard has file list
-            if(clipboard.
-
-hasClipboardFiles()){
-        System.out.
-
-println("Clipboard contains file list");
+if (clipboard.hasClipboardFiles()) {
+    System.out.println("Clipboard contains file list");
 }
 ```
 
