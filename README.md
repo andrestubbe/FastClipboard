@@ -12,10 +12,6 @@
 
 **FastClipboard** is a high-performance Java clipboard library that replaces `java.awt.Toolkit.getDefaultToolkit().getSystemClipboard()` with a direct native Windows backend using Win32 API calls (`OpenClipboard`, `GetClipboardData`, `SetClipboardData`). It supports Unicode text (`CF_UNICODETEXT`), bitmap images (`CF_DIB`), shell file lists (`CF_HDROP`), and an optional ultra-fast caching watcher delivering ~1 µs read speeds.
 
-[**Watch the Demo**](https://www.youtube.com) | Watch JMH Benchmark (YouTube)
-
-[![FastClipboard Showcase](docs/screenshot.png)](https://www.youtube.com)
-
 ---
 
 ## Quick Start
