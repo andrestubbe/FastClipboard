@@ -210,11 +210,11 @@ Download the pre-built JAR with embedded native library:
 
 ## Platform Support
 
-| Platform | Status |
-|---|---|
-| Windows 10/11 (x64) | ✅ Fully Supported (Win32 API) |
-| Linux | ❌ Not Planned |
-| macOS | ❌ Not Planned |
+| Platform | Architecture | Status | Driver / Subsystem |
+|:---|:---:|:---:|:---|
+| **Windows 10 / 11** | x64 | ✅ Fully Supported | Native Win32 Clipboard Subsystem & Formats |
+| **Linux** | x64 / AArch64 | 🚧 Planned | X11 Selection (`XFixes`) / Wayland Data Control |
+| **macOS** | Apple Silicon / x64 | 🚧 Planned | Cocoa `NSPasteboard` Subsystem |
 
 ---
 
