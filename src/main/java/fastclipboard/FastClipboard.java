@@ -11,19 +11,7 @@ package fastclipboard;
 public class FastClipboard {
     
     static {
-        try {
-            // Try System.loadLibrary first (default)
-            System.loadLibrary("fastclipboard");
-        } catch (UnsatisfiedLinkError e1) {
-            try {
-                // Fallback to absolute path
-                String dllPath = System.getProperty("user.dir") + "\\build\\fastclipboard.dll";
-                System.load(dllPath);
-            } catch (UnsatisfiedLinkError e2) {
-                System.err.println("Failed to load fastclipboard.dll: " + e2.getMessage());
-                throw e2;
-            }
-        }
+        fastcore.FastCore.loadLibrary("fastclipboard");
     }
     
     // === Text operations ===
