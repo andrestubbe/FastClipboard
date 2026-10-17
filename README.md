@@ -1,10 +1,10 @@
 # FastClipboard 0.1.0 [ALPHA] — Native Clipboard Access via JNI for Java
 
-[![Status](https://img.shields.io/badge/status-0.1.0-brightgreen.svg)](https://github.com/andrestubbe/FastClipboard/releases/tag/v0.1.0)
+[![Status](https://img.shields.io/badge/status-0.1.0-brightgreen.svg)](https://github.com/andrestubbe/FastClipboard/releases/tag/0.1.0)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Java](https://img.shields.io/badge/Java-17+-blue.svg)](https://www.java.com)
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010+-lightgrey.svg)]()
-[![JitPack](https://img.shields.io/badge/JitPack-ready-green.svg)](https://jitpack.io/#andrestubbe/FastClipboard)
+[![JitPack](https://img.shields.io/badge/JitPack-0.1.0-green.svg)](https://jitpack.io/#andrestubbe/FastClipboard)
 
 ---
 
@@ -203,7 +203,7 @@ dependencies {
 
 Download the pre-built JAR with embedded native library:
 
-1. 📦 **[fastclipboard-0.1.0.jar](https://github.com/andrestubbe/FastClipboard/releases/download/v0.1.0/fastclipboard-0.1.0.jar)** (The Core Library)
+1. 📦 **[FastClipboard-0.1.0.jar](https://github.com/andrestubbe/FastClipboard/releases/download/0.1.0/FastClipboard-0.1.0.jar)** (The Core Library)
 
 ---
 

@@ -2,7 +2,7 @@
 
 All notable changes to FastClipboard will be documented in this file.
 
-## [1.0.0] - 2026-04-09
+## [0.1.0] - 2026-04-09
 
 ### Added
 - Initial release of FastClipboard
